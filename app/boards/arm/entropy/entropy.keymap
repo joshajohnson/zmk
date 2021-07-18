@@ -35,7 +35,8 @@
     &kp KP_EQUAL  &kp KP_N1       &kp KP_N2      &kp KP_N3                     &kp LSFT       &kp Z          &kp X       &kp C       &kp V       &kp B          &kp N          &kp M          &kp CMMA       &kp DOT        &kp FSLH                      &kp RSFT       &kp UP        &bootloader
     &trans  	  &kp KP_DOT      &trans         &kp KP_N0      &kp LCTRL      &kp LGUI                      &kp LALT                &kp SPACE   &kp SPACE                     &kp SPACE                     &kp RALT       &trans         &kp RCTRL      &kp LEFT       &kp DOWN      &kp RIGHT
             >;
-            
+
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
 
 	};

@@ -18,7 +18,7 @@
 		zephyr,flash = &flash0;
 		zmk,kscan = &kscan0;
 		zmk,matrix_transform = &default_transform;
-//		zmk,underglow = &led_strip;
+		zmk,underglow = &led_strip;
 	};
 
 	default_transform: keymap_transform_0 {
@@ -72,6 +72,52 @@
 			;
 	};
 
+	// Remove any encoders not being used and adjust the sensor-bindings mapping in entropy.keymap
+	sensors {
+    	compatible = "zmk,keymap-sensors";
+    	sensors = <&encoder_0 &encoder_1 &encoder_2 &encoder_3 &encoder_4>;
+	};
+
+	encoder_0: encoder0 {
+        compatible = "alps,ec11";
+        label = "ENCODER_0";
+        a-gpios = <&gpio0  2 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 28 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
+	encoder_1: encoder1 {
+        compatible = "alps,ec11";
+        label = "ENCODER_1";
+        a-gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 30 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
+	encoder_2: encoder2 {
+        compatible = "alps,ec11";
+        label = "ENCODER_2";
+        a-gpios = <&gpio0 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
+	encoder_3: encoder3 {
+        compatible = "alps,ec11";
+        label = "ENCODER_3";
+        a-gpios = <&gpio0 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
+	encoder_4: encoder4 {
+        compatible = "alps,ec11";
+        label = "ENCODER_4";
+        a-gpios = <&gpio0 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
 	leds {
 		compatible = "gpio-leds";
 		blue_led: led_0 {
@@ -111,28 +157,28 @@
 	status = "okay";
 };
 
-//&spi0 {
-//	compatible = "nordic,nrf-spim";
-//	/* Cannot be used together with i2c0. */
-//	status = "okay";
-//	sck-pin = <5>;
-//	mosi-pin = <15>;
-//	miso-pin = <3>;
-//
-//	led_strip: ws2812@0 {
-//		compatible = "worldsemi,ws2812-spi";
-//		label = "WS2812";
-//
-//		/* SPI */
-//		reg = <0>; /* ignored, but necessary for SPI bindings */
-//		spi-max-frequency = <4000000>;
-//
-//		/* WS2812 */
-//		chain-length = <4>; /* LED strip length */
-//		spi-one-frame = <0x70>;
-//		spi-zero-frame = <0x40>;
-//	};
-//};
+&spi0 {
+	compatible = "nordic,nrf-spim";
+	/* Cannot be used together with i2c0. */
+	status = "okay";
+	sck-pin = <3>;
+	mosi-pin = <5>;
+	miso-pin = <15>;
+
+	led_strip: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		label = "WS2812";
+
+		/* SPI */
+		reg = <0>; /* ignored, but necessary for SPI bindings */
+		spi-max-frequency = <4000000>;
+
+		/* WS2812 */
+		chain-length = <4>; /* LED strip length */
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+	};
+};
 
 &usbd {
 	status = "okay";
